@@ -9,6 +9,10 @@ on:
       earthly_multi_target:
         required: false
         type: string
+      build_multi:
+        required: false
+        type: boolean
+        default: false
     secrets:
       token:
         required: false
@@ -25,7 +29,7 @@ jobs:
       id-token: 'write'
 
     env:
-      PUSH_MULTI: ${{ matrix.build_multi && github.event_name == 'push' && github.ref == 'refs/heads/master' && inputs.earthly_multi_target != ''}}
+      PUSH_MULTI: ${{ inputs.build_multi && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       LD_LIBRARY_PATH: /usr/local/lib # Needed to fix gcloud gh action BUG
       GIT_USERNAME: user_token
       GIT_PASSWORD: ${{ secrets.KENTIK_ALL_GITHUB_TOKEN }}
