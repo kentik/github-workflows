@@ -13,6 +13,9 @@ on:
         required: false
         type: boolean
         default: false
+      strategy_matrix:
+        required: false
+        type: string
     secrets:
       token:
         required: false
@@ -28,12 +31,17 @@ jobs:
       contents: 'read'
       id-token: 'write'
 
+#    strategy:
+#      matrix: ${{ fromJson(inputs.strategy_matrix )}}
+
     env:
       PUSH_MULTI: ${{ inputs.build_multi && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       LD_LIBRARY_PATH: /usr/local/lib # Needed to fix gcloud gh action BUG
       GIT_USERNAME: user_token
       GIT_PASSWORD: ${{ secrets.KENTIK_ALL_GITHUB_TOKEN }}
     steps:
+      - run: echo "${{ inputs.strategy_matrix}}"
+      - run: echo "${{ fromJson(inputs.strategy_matrix) }}"
       - name: Checkout Code
         uses: actions/checkout@v2
 
