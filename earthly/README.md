@@ -1,0 +1,31 @@
+# Configures and run earthly
+
+This [GitHub Action][action] simplifies running [Earthly][earthly].  
+First it configures docker for later use and prepare some environmental variables.  
+If `build_multi` is set and branch is `main` or `master` it will
+use `earthly_multi_target` instead of `earthly_target`,
+
+
+## Inputs
+
+| Name                       | Description                           |
+| -------------------------- | ------------------------------------- |
+| *earthly_target*           | Earthly target to run                 |
+| *earthly_multi_target*     | Earthly multi platform target to run  |
+| *build_multi*              | Should build multi platform targets   |
+| *github_token*             | Token to use for calling github (will be set for Earthly)       |
+
+## Usage
+
+```yaml
+uses: kentik/github-workflows/earthly@main
+with:
+  github_token: ${{ secrets.GITHUB_TOKEN }}
+  earthly_target: +all
+  earthly_multi_target: +all-platforms
+  build_multi: false
+```
+
+[action]: https://github.com/features/actions
+
+[earthly]: https://docs.earthly.dev/
