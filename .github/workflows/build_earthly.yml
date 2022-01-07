@@ -13,12 +13,6 @@ on:
         required: false
         type: boolean
         default: false
-      strategy_matrix:
-        required: false
-        type: string
-    secrets:
-      token:
-        required: false
 
 jobs:
   build:
@@ -31,63 +25,14 @@ jobs:
       contents: 'read'
       id-token: 'write'
 
-#    strategy:
-#      matrix: ${{ fromJson(inputs.strategy_matrix )}}
-
-    env:
-      PUSH_MULTI: ${{ inputs.build_multi && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      LD_LIBRARY_PATH: /usr/local/lib # Needed to fix gcloud gh action BUG
-      GIT_USERNAME: user_token
-      GIT_PASSWORD: ${{ secrets.KENTIK_ALL_GITHUB_TOKEN }}
     steps:
-      - run: echo "${{ inputs.strategy_matrix}}"
-      - run: echo "${{ fromJson(inputs.strategy_matrix) }}"
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set up GCP credentials
-        uses: google-github-actions/auth@v0
+      - name: Run Earthly
+        uses: kentik/github-workflows/earthly@main
         with:
-          workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
-          service_account: "svc-github-action@kentik-continuous-delivery.iam.gserviceaccount.com"
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.3.0
-
-      - name: Configure docker
-        run: gcloud auth configure-docker
-
-      - name: Put back the git branch into git and setup SANITAZED_BRANCH_NAME
-        run: |
-          if [ -n "$GITHUB_HEAD_REF" ]; then
-            echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-          else
-            echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
-          fi
-          git checkout -b "$BRANCH_NAME" || true
-          # copy/paste from https://github.com/kentik/kentik-build-tools/blob/master/lib/lib.sh#L207
-          function kbt_sanitize() {
-               local input="$@"
-               local output=${input//[ _=+\/]/-}
-               output=${output//[^a-zA-Z0-9\-]/}
-               output=`builtin echo -n $output | sed 's/^-*//' | sed 's/-*$//' | tr A-Z a-z`
-               builtin echo ${output}
-          }
-          echo "SANITIZED_BRANCH=$(kbt_sanitize ${BRANCH_NAME})" >> $GITHUB_ENV
-
-      - uses: docker/setup-qemu-action@v1
-        with:
-          image: tonistiigi/binfmt:latest
-          platforms: all
-
-      - uses: earthly/actions/setup-earthly@v1
-        with:
-          version: v0.6.2
-
-      - name: Build multi platform docker images
-        if: env.PUSH_MULTI == 'true'
-        run: earthly --push --strict ${{ inputs.earthly_multi_target }} --RUN_ID=$GITHUB_RUN_NUMBER
-
-      - name: Build native docker image
-        if: env.PUSH_MULTI != 'true'
-        run: earthly --push --strict ${{ inputs.earthly_target }} --RUN_ID=$GITHUB_RUN_NUMBER
+          github_token: ${{ secrets.KENTIK_ALL_GITHUB_TOKEN }}
+          earthly_target: ${{ inputs.earthly_target }}
+          earthly_multi_target: ${{ inputs.earthly_multi_target }}
+          build_multi: ${{ inputs.build_multi }}
