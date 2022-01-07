@@ -26,6 +26,17 @@ with:
   build_multi: false
 ```
 
+This action needs special permissions to use GH<->GCP Federation
+
+```
+jobs:
+    build:
+        # Allow the job to fetch a GitHub ID token
+        permissions:
+          contents: 'read'
+          id-token: 'write'
+```
+
 [action]: https://github.com/features/actions
 
 [earthly]: https://docs.earthly.dev/

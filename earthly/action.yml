@@ -33,6 +33,7 @@ runs:
       run: gcloud auth configure-docker
 
     - uses: docker/setup-qemu-action@v1
+      if: input.build_multi != 'false'
       with:
         image: tonistiigi/binfmt:latest
         platforms: all
