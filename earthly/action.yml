@@ -33,7 +33,7 @@ runs:
       run: gcloud auth configure-docker
 
     - uses: docker/setup-qemu-action@v1
-#      if: ${{ input.build_multi != 'false' }}
+      if: ${{ inputs.build_multi == 'true' }}
       with:
         image: tonistiigi/binfmt:latest
         platforms: all
@@ -47,6 +47,7 @@ runs:
         PUSH_MULTI: ${{ inputs.build_multi && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       shell: bash
       run: |
+        echo "Setting variables for Earthly"
         branch=""
         if [ -n "$GITHUB_HEAD_REF" ]; then
           branch="$GITHUB_HEAD_REF"
@@ -77,4 +78,6 @@ runs:
       env:
         GIT_USERNAME: user_token
         GIT_PASSWORD: ${{ inputs.github_token }}
-      run: earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH
+      run: |
+        echo "earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH"
+        earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH
