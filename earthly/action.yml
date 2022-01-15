@@ -65,7 +65,7 @@ runs:
         }
         echo "SANITIZED_BRANCH=$(kbt_sanitize $branch)" >> $GITHUB_ENV
 
-        if [ '$PUSH_MULTI' == 'true' ]; then
+        if [ "$PUSH_MULTI" == 'true' ]; then
           echo "Will build multi platform target"
           echo "EARTHLY_TARGET=${{ inputs.earthly_multi_target }}" >> $GITHUB_ENV
         else
