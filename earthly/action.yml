@@ -81,6 +81,7 @@ runs:
       env:
         GIT_USERNAME: user_token
         GIT_PASSWORD: ${{ inputs.github_token }}
+        EARTHLY_ALLOW_PRIVILEGED: 'true'
       run: |
         echo "earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH"
         earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH
