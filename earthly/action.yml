@@ -44,7 +44,10 @@ runs:
 
     - name: Put back the git branch into git and setup Earthly variables
       env:
-        PUSH_MULTI: ${{ inputs.build_multi && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        PUSH_MULTI: ${{ inputs.build_multi && contains('
+            refs/heads/master
+            refs/heads/main
+          ', github.ref) }}
       shell: bash
       run: |
         echo "Setting variables for Earthly"
