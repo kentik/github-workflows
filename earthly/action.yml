@@ -14,6 +14,10 @@ inputs:
   github_token:
     description: 'Token to use for calling github'
     required: false
+  earthly_version:
+    description: 'Earthly version to use'
+    required: false
+    default: 0.6.2
 
 runs:
   using: "composite"
@@ -32,15 +36,9 @@ runs:
       shell: bash
       run: gcloud auth configure-docker
 
-    - uses: docker/setup-qemu-action@v1
-      if: ${{ inputs.build_multi == 'true' }}
-      with:
-        image: tonistiigi/binfmt:latest
-        platforms: all
-
     - uses: earthly/actions/setup-earthly@v1
       with:
-        version: v0.6.2
+        version: v${{ inputs.earthly_version }}
 
     - name: Put back the git branch into git and setup Earthly variables
       env:
@@ -71,10 +69,17 @@ runs:
         if [ "$PUSH_MULTI" == 'true' ]; then
           echo "Will build multi platform target"
           echo "EARTHLY_TARGET=${{ inputs.earthly_multi_target }}" >> $GITHUB_ENV
+          echo "PUSH_MULTI=true" >> $GITHUB_ENV
         else
           echo "Will build single platform target"
           echo "EARTHLY_TARGET=${{ inputs.earthly_target }}" >> $GITHUB_ENV
         fi
+
+    - uses: docker/setup-qemu-action@v1
+      if: ${{ env.PUSH_MULTI == 'true' }}
+      with:
+        image: tonistiigi/binfmt:latest
+        platforms: all
 
     - name: Build docker images
       shell: bash
@@ -82,6 +87,7 @@ runs:
         GIT_USERNAME: user_token
         GIT_PASSWORD: ${{ inputs.github_token }}
         EARTHLY_ALLOW_PRIVILEGED: 'true'
+        EARTHLY_VERBOSE: ${{ contains(github.event.pull_request.body, '+debug') }}
       run: |
         echo "earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH"
         earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH

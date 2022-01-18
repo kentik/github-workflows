@@ -3,7 +3,9 @@
 This [GitHub Action][action] simplifies running [Earthly][earthly].  
 First it configures docker for later use and prepare some environmental variables.  
 If `build_multi` is set and branch is `main` or `master` it will
-use `earthly_multi_target` instead of `earthly_target`,
+use `earthly_multi_target` instead of `earthly_target`.
+
+You can add `+debug` in PR comment to set Earthly verbose mode.
 
 
 ## Inputs
@@ -13,7 +15,8 @@ use `earthly_multi_target` instead of `earthly_target`,
 | *earthly_target*           | Earthly target to run                 |
 | *earthly_multi_target*     | Earthly multi platform target to run  |
 | *build_multi*              | Should build multi platform targets   |
-| *github_token*             | Token to use for calling github (will be set for Earthly)       |
+| *github_token*             | Token to use for calling github (will be set for Earthly) |
+| *earthly_version*          | Earthly version to use (default 0.6.2)|
 
 ## Usage
 
