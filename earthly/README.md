@@ -6,6 +6,7 @@ If `build_multi` is set and branch is `main` or `master` it will
 use `earthly_multi_target` instead of `earthly_target`.
 
 You can add `+debug` in PR comment to set Earthly verbose mode.
+You can add `+multi` in PR comment to force building multi target targets even on PR.
 
 
 ## Inputs
