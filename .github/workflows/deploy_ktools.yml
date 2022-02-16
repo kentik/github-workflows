@@ -15,6 +15,7 @@ on:
         default: master
 
 
+
 jobs:
   wait_for_build:
     name: Wait for Build
@@ -27,7 +28,7 @@ jobs:
           check-name: Jenkins
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           allowed-conclusions: success
-        if: ${{ contains(github.event.head_commit.message, '#deployour1') }}
+        if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'master' }}
 
   deploy:
     name: Deploy to Staging (our1)
@@ -44,8 +45,8 @@ jobs:
 
       - name: kt push
         run: kt deploy push --generate-token -e our1 --branch ${{ inputs.branch }} ${{ inputs.service_group }} --go
-        if: ${{ contains(github.event.head_commit.message, '#deployour1') }}
+        if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'master' }}
 
       - name: kt status
         run: kt deploy status --generate-token -e our1 ${{ inputs.service_group }}
-        if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'agent-test' }}
+        if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'master' }}
