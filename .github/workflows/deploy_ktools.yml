@@ -1,0 +1,33 @@
+name: Deploy with ktools
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      service_group:
+        required: true
+        type: string
+
+
+jobs:
+  deploy:
+    name: Deploy to Staging (our1)
+
+    runs-on: our1
+
+    # Allow the job to fetch a GitHub ID token
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+
+      - name: kt push
+        run: kt deploy push --generate-token -e our1 --branch ${{ env.GITHUB_REF_NAME }} ${{ inputs.service_group }} --go
+        if: ${{ contains(github.event.head_commit.message, '#deployour1') }}
+
+      - name: kt status
+        run: kt deploy status --generate-token -e our1 ${{ inputs.service_group }}
+        if: ${{ contains(github.event.head_commit.message, '#deployour1') }}
