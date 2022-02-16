@@ -9,6 +9,10 @@ on:
       service_group:
         required: true
         type: string
+      branch:
+        required: false
+        type: string
+        default: master
 
 
 jobs:
@@ -29,7 +33,7 @@ jobs:
           env
 
       - name: kt push
-        run: kt deploy push --generate-token -e our1 --branch ${{ env.GITHUB_REF_NAME }} ${{ inputs.service_group }} --go
+        run: kt deploy push --generate-token -e our1 --branch ${{ inputs.branch }} ${{ inputs.service_group }} --go
         if: ${{ contains(github.event.head_commit.message, '#deployour1') }}
 
       - name: kt status
