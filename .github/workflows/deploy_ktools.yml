@@ -28,9 +28,13 @@ jobs:
 
     steps:
 
-      - name: dump env
-        run: |
-          env
+      - name: Wait for Build
+        uses: lewagon/wait-on-check-action@v1.0.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          check-name: Jenkins
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allowed-conclusions: success
 
       - name: kt push
         run: kt deploy push --generate-token -e our1 --branch ${{ inputs.branch }} ${{ inputs.service_group }} --go
