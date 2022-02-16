@@ -24,6 +24,10 @@ jobs:
 
     steps:
 
+      - name: dump env
+        run: |
+          env
+
       - name: kt push
         run: kt deploy push --generate-token -e our1 --branch ${{ env.GITHUB_REF_NAME }} ${{ inputs.service_group }} --go
         if: ${{ contains(github.event.head_commit.message, '#deployour1') }}
