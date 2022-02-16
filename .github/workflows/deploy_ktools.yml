@@ -47,4 +47,4 @@ jobs:
 
       - name: kt status
         run: kt deploy status --generate-token -e our1 ${{ inputs.service_group }}
-        if: ${{ contains(github.event.head_commit.message, '#deployour1') }}
+        if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'agent-test' }}
