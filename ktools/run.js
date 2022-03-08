@@ -2,11 +2,10 @@ var childProcess = require('child_process');
 const { exit } = require('process');
 const fs = require('fs');
 const mainScript = `${__dirname}/action`
-fs.readdir(__dirname, (err, files) => {
-    files.forEach(file => {
-      console.log(`foo: ${file}`);
-    });
-});
+fs.readdirSync('/Users/bvale/src/github-workflows/ktools').forEach(file => {
+    console.log(`f: ${file}`);  
+})
+
 
 
 console.log(`path: ${mainScript}`);
