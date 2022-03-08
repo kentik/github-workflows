@@ -1,0 +1,27 @@
+name: 'ktools deploy restart'
+description: 'Deploy Kentik services using Github Actions'
+inputs:
+  environment:
+    description: Environment 
+    required: true
+  service_group:
+    description: Name of the service
+    required: true
+  cleanup:
+    description: |
+      The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
+    default: 'true'
+    required: false
+  subcommand:
+    default: deploy
+    description: action subcommand
+    required: false
+  operation:
+    default: restart
+    description: operation of subcommand
+    required: false
+    
+    
+runs:
+  using: 'node16'
+  main: '../../run.js'
