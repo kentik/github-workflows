@@ -3,5 +3,5 @@ const { exit } = require('process');
 const mainScript = `${__dirname}/action`
 console.log(`path: ${mainScript}`);
 const spawnSyncReturns = childProcess.spawnSync(mainScript, { stdio: 'inherit' })
-console.log(`Final status: ${spawnSyncReturns.status}`);
+console.log(`Final status: ${spawnSyncReturns.status} err: ${spawnSyncReturns.error}`);
 exit(spawnSyncReturns.status);
