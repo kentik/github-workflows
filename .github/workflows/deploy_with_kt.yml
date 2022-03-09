@@ -46,9 +46,12 @@ jobs:
 
     runs-on: ubuntu-latest
     if: >-
-      contains(github.event.head_commit.message, '#deployour1') ||
-      contains(github.event.head_commit.message, '#deploy') ||
-      github.ref_name == 'master'
+      (
+        contains(github.event.head_commit.message, '#deployour1') ||
+        contains(github.event.head_commit.message, '#deploy') ||
+        contains(toJSON(inputs.autodeploy_branches), github.ref_name)
+      ) && 
+      ! contains(github.event.head_commit.message, '#nodeploy')
 
     # Allow the job to fetch a GitHub ID token
     permissions:
@@ -76,6 +79,13 @@ jobs:
           service_group: ${{ inputs.service_group }}
           environment: our1
           branch: ${{ inputs.branch }}
+          cleanup: false
+
+      - name: Show Status
+        uses: kentik/github-workflows/ktools/deploy/status@kt
+        with:
+          service_group: ${{ inputs.service_group }}
+          environment: our1
 
         
       
