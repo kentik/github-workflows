@@ -20,7 +20,7 @@ jobs:
     steps:
 
       - name: Wait for Build
-        uses: bernardovale/action-wait-for-check@allowed
+        uses: bernardovale/action-wait-for-check@9d7f2343de8dadca1784ce4f0cac19a0c6651b8d
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
