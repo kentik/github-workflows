@@ -10,6 +10,10 @@ on:
         required: false
         type: string
         default: ${{ github.ref_name }}
+      autodeploy_branches:
+        required: false
+        type: string
+        default: '["master", "pipes"]'
 
 
 jobs:
@@ -19,7 +23,7 @@ jobs:
     if: >-
       contains(github.event.head_commit.message, '#deployour1') ||
       contains(github.event.head_commit.message, '#deploy') ||
-      github.ref_name == 'master'
+      contains(toJSON(inputs.autodeploy_branches), github.ref_name)
     steps:
 
       - name: Wait for Build
