@@ -87,6 +87,3 @@ jobs:
         with:
           service_group: ${{ inputs.service_group }}
           environment: our1
-
-        
-      
