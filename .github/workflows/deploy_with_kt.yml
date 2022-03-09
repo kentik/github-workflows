@@ -50,7 +50,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
 
       - name: Show Current Status
-        uses: ../../ktools/deploy/status
+        uses: kentik/github-workflows/ktools/deploy/status@kt
         with:
           service_group: ${{ inputs.service_group }}
           environment: our1
