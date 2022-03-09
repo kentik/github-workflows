@@ -20,7 +20,7 @@ jobs:
     steps:
 
       - name: Wait for Build
-        uses: fountainhead/action-wait-for-check@v1.0.0
+        uses: bernardovale/action-wait-for-check@allowed
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -28,6 +28,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           intervalSeconds: 2
           timeoutSeconds: 1800
+          allowedStatus: failure
         if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'master' }}
 
       # - name: Wait for Build
