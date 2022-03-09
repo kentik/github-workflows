@@ -18,13 +18,6 @@ jobs:
     name: Wait for Build
     runs-on: ubuntu-latest
     steps:
-      - name: Configure
-        env:
-          SHOULD_DEPLOY: ${{ 
-                contains(github.event.head_commit.message, '#deployour1') ||
-                contains(github.event.head_commit.message, '#deploy') ||
-                github.ref_name == 'master' 
-                }}
 
       - name: Wait for Build
         uses: bernardovale/action-wait-for-check@allowed-status
@@ -36,7 +29,17 @@ jobs:
           intervalSeconds: 5
           timeoutSeconds: 1800
           allowedStatus: success
-        if: ${{ env.SHOULD_DEPLOY == 'true' }}
+        if: ${{ 
+                contains(github.event.head_commit.message, '#deployour1') ||
+                contains(github.event.head_commit.message, '#deploy') ||
+                github.ref_name == 'master' 
+                }}
+        env:
+          SHOULD_DEPLOY: ${{ 
+                contains(github.event.head_commit.message, '#deployour1') ||
+                contains(github.event.head_commit.message, '#deploy') ||
+                github.ref_name == 'master' 
+                }}
 
   deploy:
     name: Deploy to Staging (our1)
