@@ -26,16 +26,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           checkName: Jenkins
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          intervalSeconds: 2
+          intervalSeconds: 5
           timeoutSeconds: 1800
-          allowedStatus: failure
+          allowedStatus: success
         if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'master' }}
-
-      # - name: Wait for Build
-      #   uses: lewagon/wait-on-check-action@v1.0.0
-      #   with:
-      #     allowed-conclusions: success
-      #   if: ${{ contains(github.event.head_commit.message, '#deployour1') ||  github.ref_name == 'master' }}
 
   deploy:
     name: Deploy to Staging (our1)
