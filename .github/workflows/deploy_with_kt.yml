@@ -33,13 +33,7 @@ jobs:
                 contains(github.event.head_commit.message, '#deployour1') ||
                 contains(github.event.head_commit.message, '#deploy') ||
                 github.ref_name == 'master' 
-                }}
-        env:
-          SHOULD_DEPLOY: ${{ 
-                contains(github.event.head_commit.message, '#deployour1') ||
-                contains(github.event.head_commit.message, '#deploy') ||
-                github.ref_name == 'master' 
-                }}
+            }}
 
   deploy:
     name: Deploy to Staging (our1)
@@ -59,12 +53,20 @@ jobs:
         with:
           workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
-        if: ${{ env.SHOULD_DEPLOY == 'true' }}
+        if: ${{ 
+                contains(github.event.head_commit.message, '#deployour1') ||
+                contains(github.event.head_commit.message, '#deploy') ||
+                github.ref_name == 'master' 
+            }}
 
       - name: Show Current Status
         uses: kentik/github-workflows/ktools/deploy/status@kt
         with:
           service_group: ${{ inputs.service_group }}
           environment: our1
-        if: ${{ env.SHOULD_DEPLOY == 'true' }}
+        if: ${{ 
+                contains(github.event.head_commit.message, '#deployour1') ||
+                contains(github.event.head_commit.message, '#deploy') ||
+                github.ref_name == 'master' 
+            }}
         
