@@ -21,9 +21,12 @@ jobs:
     name: Wait for Build
     runs-on: ubuntu-latest
     if: >-
-      contains(github.event.head_commit.message, '#deployour1') ||
-      contains(github.event.head_commit.message, '#deploy') ||
-      contains(toJSON(inputs.autodeploy_branches), github.ref_name)
+      (
+        contains(github.event.head_commit.message, '#deployour1') ||
+        contains(github.event.head_commit.message, '#deploy') ||
+        contains(toJSON(inputs.autodeploy_branches), github.ref_name)
+      ) && 
+      ! contains(github.event.head_commit.message, '#nodeploy')
     steps:
 
       - name: Wait for Build
