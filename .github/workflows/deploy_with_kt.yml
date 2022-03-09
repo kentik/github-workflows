@@ -17,6 +17,10 @@ jobs:
   wait_for_build:
     name: Wait for Build
     runs-on: ubuntu-latest
+    if: >-
+      contains(github.event.head_commit.message, '#deployour1') ||
+      contains(github.event.head_commit.message, '#deploy') ||
+      github.ref_name == 'master'
     steps:
 
       - name: Wait for Build
@@ -29,17 +33,16 @@ jobs:
           intervalSeconds: 5
           timeoutSeconds: 1800
           allowedStatus: success
-        if: ${{ 
-                contains(github.event.head_commit.message, '#deployour1') ||
-                contains(github.event.head_commit.message, '#deploy') ||
-                github.ref_name == 'master' 
-            }}
 
   deploy:
     name: Deploy to Staging (our1)
     needs: wait_for_build
 
     runs-on: ubuntu-latest
+    if: >-
+      contains(github.event.head_commit.message, '#deployour1') ||
+      contains(github.event.head_commit.message, '#deploy') ||
+      github.ref_name == 'master'
 
     # Allow the job to fetch a GitHub ID token
     permissions:
@@ -53,20 +56,11 @@ jobs:
         with:
           workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
-        if: ${{ 
-                contains(github.event.head_commit.message, '#deployour1') ||
-                contains(github.event.head_commit.message, '#deploy') ||
-                github.ref_name == 'master' 
-            }}
 
       - name: Show Current Status
         uses: kentik/github-workflows/ktools/deploy/status@kt
         with:
           service_group: ${{ inputs.service_group }}
           environment: our1
-        if: ${{ 
-                contains(github.event.head_commit.message, '#deployour1') ||
-                contains(github.event.head_commit.message, '#deploy') ||
-                github.ref_name == 'master' 
-            }}
+
         
