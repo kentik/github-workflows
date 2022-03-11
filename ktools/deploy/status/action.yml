@@ -1,0 +1,27 @@
+name: KTools Service Status
+description: 'Show status of Kentik services using Github Actions'
+inputs:
+  environment:
+    description: Environment 
+    required: true
+  service_group:
+    description: Name of the service
+    required: true
+  cleanup:
+    description: |
+      Deletes the log subscription after executing the command. Set it to false if you plan to run other ktools commands in the same pipeline.
+    default: 'true'
+    required: false
+  subcommand:
+    default: deploy
+    description: action subcommand
+    required: false
+  operation:
+    default: status
+    description: operation of subcommand
+    required: false
+    
+    
+runs:
+  using: 'node16'
+  main: '../../run.js'
