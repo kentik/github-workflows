@@ -1,4 +1,4 @@
-# {{ path }}
+# earthly
 
 This [GitHub Action][action] simplifies running [Earthly][earthly].  
 First it configures docker for later use and prepare some environmental variables.  
@@ -13,9 +13,12 @@ You can add `+multi` in PR comment to force building multi target targets even o
 
 | parameter| description | required | default |
 | - | - | - | - |
-{% for input, cfg in inputs.items() -%}
-| {{ input }} | {{ cfg.description }} | {% if cfg.required %} yes {% else %} - {% endif %} | {{ cfg.default }}
-{% endfor %}
+| earthly_target | Earthly target to run |  yes  | 
+| earthly_multi_target | Earthly multi platform target to run |  -  | 
+| build_multi | Should build multi platform targets |  -  | false
+| github_token | Token to use for calling github |  -  | 
+| earthly_version | Earthly version to use |  -  | 0.6.6
+
 
 
 ## Usage
@@ -23,7 +26,7 @@ You can add `+multi` in PR comment to force building multi target targets even o
 ```yaml
 uses: kentik/github-workflows/earthly@main
 with:
-  github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+  github_token: ${{ secrets.GITHUB_TOKEN }}
   earthly_target: +all
   earthly_multi_target: +all-platforms
   build_multi: false

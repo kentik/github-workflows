@@ -1,5 +1,6 @@
 name: 'ktools deploy stop'
-description: 'Deploy Kentik services using Github Actions'
+description: |
+  Run `kt deploy stop` using Github Actions
 inputs:
   environment:
     description: Environment 
@@ -8,17 +9,16 @@ inputs:
     description: Name of the service
     required: true
   cleanup:
-    description: |
-      The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
+    description: The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
     default: 'true'
     required: false
   subcommand:
     default: deploy
-    description: action subcommand
+    description: action subcommand [ignore this input]
     required: false
   operation:
     default: stop
-    description: operation of subcommand
+    description: operation of subcommand [ignore this input]
     required: false
     
     
