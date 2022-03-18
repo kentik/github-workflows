@@ -1,0 +1,19 @@
+name: Trigger Docs Update
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs/**'
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Central Docs
+        uses: passeidireto/trigger-external-workflow-action@d78a1f58cb96f3a637e37da56b8714f5a92c9d34
+        env:
+          PAYLOAD_SENDER: ${{ github.repository }}
+        with:
+          repository: kentik/eng-docs
+          event: docs
+          github_pat: ${{ secrets.KNTKMACHINERY_DOCS_TRIGGER }}
