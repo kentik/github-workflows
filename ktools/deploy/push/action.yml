@@ -12,8 +12,7 @@ inputs:
     default: master
     required: false
   cleanup:
-    description: |
-      The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
+    description: The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
     default: 'true'
     required: false
   subcommand:

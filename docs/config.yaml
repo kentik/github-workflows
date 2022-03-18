@@ -1,0 +1,7 @@
+central:
+  repository_path: kentik/eng-docs
+  branch: master
+
+components:
+  - source: docs/pipelines
+    destination: toolchain
