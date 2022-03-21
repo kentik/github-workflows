@@ -1,0 +1,53 @@
+name: Deploy to our1 using ktools
+
+on:
+  workflow_call:
+    inputs:
+      service_group:
+        required: true
+        type: string
+      branch:
+        required: false
+        type: string
+
+
+jobs:
+
+  deploy:
+    name: Deploy to Staging (our1)
+    
+    runs-on: ubuntu-latest
+
+    # Allow the job to fetch a GitHub ID token
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+
+      - name: Configure Credentials
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
+
+      - name: Show Current Status
+        uses: kentik/github-workflows/ktools/deploy/status@kt
+        with:
+          service_group: ${{ inputs.service_group }}
+          environment: our1
+          cleanup: false
+
+      - name: Deploy Service
+        uses: kentik/github-workflows/ktools/deploy/push@kt
+        with:
+          service_group: ${{ inputs.service_group }}
+          environment: our1
+          branch: ${{ inputs.branch }}
+          cleanup: false
+
+      - name: Show Status
+        uses: kentik/github-workflows/ktools/deploy/status@kt
+        with:
+          service_group: ${{ inputs.service_group }}
+          environment: our1
