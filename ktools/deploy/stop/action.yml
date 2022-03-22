@@ -12,6 +12,10 @@ inputs:
     description: The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
     default: 'true'
     required: false
+  host:
+    description: "Deploys only to a comma-separated list of hosts. E.g: c101.our1.kentik.com,c102.our1.kentik.com"
+    default: ""
+    required: false
   subcommand:
     default: deploy
     description: action subcommand [ignore this input]
