@@ -11,6 +11,22 @@ inputs:
     description: 'Deploy service using image built from this branch. Append the build number to deploy a specific version. Example: `master.10`'
     default: master
     required: false
+  skip-maint:
+    description: 'Skip maintenance window (period of time where Pagerduty alarms are ignored).'
+    default: ''
+    required: false
+  skip-restart:
+    description: 'Skip restart step.'
+    default: ''
+    required: false
+  emergency-deploy:
+    description: "Ignores all constraints/restrictions and proceed with deploy"
+    default: ''
+    required: false
+  sleep:
+    description: "Sleep for the configured amount of seconds between servers instead of `randsleep`"
+    default: ""
+    required: false
   cleanup:
     description: The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
     default: 'true'
