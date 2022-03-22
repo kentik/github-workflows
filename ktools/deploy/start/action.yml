@@ -1,6 +1,5 @@
-name: 'ktools deploy stop'
-description: |
-  Run `kt deploy stop` using Github Actions
+name: KTools Start Service
+description: 'Start Kentik services using Github Actions'
 inputs:
   environment:
     description: Environment 
@@ -25,7 +24,7 @@ inputs:
     description: action subcommand [ignore this input]
     required: false
   operation:
-    default: stop
+    default: start
     description: operation of subcommand [ignore this input]
     required: false
     
