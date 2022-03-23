@@ -1,4 +1,4 @@
-name: Deploy to our1 using ktools
+name: Deploy to any environment using ktools
 on:
   workflow_call:
     inputs:
@@ -8,11 +8,15 @@ on:
       branch:
         required: false
         type: string
+      environment:
+        required: false
+        type: string
+        default: our1
 
 jobs:
 
   deploy:
-    name: Deploy to Staging (our1)
+    name: Deploy Service
     
     runs-on: ubuntu-latest
 
@@ -30,22 +34,22 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
 
       - name: Show Current Status
-        uses: kentik/github-workflows/ktools/deploy/status@kt
+        uses: kentik/github-workflows/ktools/deploy/status@main
         with:
           service_group: ${{ inputs.service_group }}
-          environment: our1
+          environment: ${{ inputs.environment }}
           cleanup: false
 
       - name: Deploy Service
-        uses: kentik/github-workflows/ktools/deploy/push@kt
+        uses: kentik/github-workflows/ktools/deploy/push@main
         with:
           service_group: ${{ inputs.service_group }}
-          environment: our1
+          environment: ${{ inputs.environment }}
           branch: ${{ inputs.branch }}
           cleanup: false
 
       - name: Show Status
-        uses: kentik/github-workflows/ktools/deploy/status@kt
+        uses: kentik/github-workflows/ktools/deploy/status@main
         with:
           service_group: ${{ inputs.service_group }}
-          environment: our1
+          environment: ${{ inputs.environment }}

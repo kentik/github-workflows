@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - ktools-steps
     paths:
       - 'docs/**'
 jobs:
@@ -17,4 +16,4 @@ jobs:
         with:
           repository: kentik/eng-docs
           event: docs
-          github_pat: ${{ secrets.KNTKMACHINERY_DOCS_TRIGGER2 }}
+          github_pat: ${{ secrets.KNTKMACHINERY_DOCS_TRIGGER }}

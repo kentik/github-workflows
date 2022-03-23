@@ -18,10 +18,16 @@ Wait for Jenkins and deploy the service to `our1`. Additionally, run `kt deploy 
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/deploy/push@main
-with:
-  service_group: notify-api
-  autodeploy_branches: '["master", "main"]'
+name: Deploy to Staging
+
+on:
+  push:
+
+jobs:
+  deploy:
+    uses: kentik/github-workflows/.github/workflows/deploy_our1.yml@main
+    with:
+      service_group: apigw-envoy-fe
 ```
 
 ### Triggering this Workflow
