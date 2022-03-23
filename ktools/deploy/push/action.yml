@@ -11,6 +11,26 @@ inputs:
     description: 'Deploy service using image built from this branch. Append the build number to deploy a specific version. Example: `master.10`'
     default: master
     required: false
+  skip-maint:
+    description: 'Skip maintenance window (period where Pagerduty alarms are ignored).'
+    default: 'false'
+    required: false
+  skip-restart:
+    description: 'Skip restart step.'
+    default: 'false'
+    required: false
+  emergency-deploy:
+    description: "Ignores all constraints/restrictions and proceed with deploy"
+    default: 'false'
+    required: false
+  host:
+    description: "Deploys only to a comma-separated list of hosts. E.g: c101.our1.kentik.com,c102.our1.kentik.com"
+    default: ""
+    required: false
+  sleep:
+    description: "Sleep for the configured amount of seconds between servers instead of `randsleep`"
+    default: '-1'
+    required: false
   cleanup:
     description: The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
     default: 'true'

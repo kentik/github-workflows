@@ -1,7 +1,6 @@
-# ktools/deploy/stop
+# ktools/deploy/start
 
-Run `kt deploy stop` using Github Actions
-
+Start Kentik services using Github Actions
 
 ## Inputs
 
@@ -13,14 +12,14 @@ Run `kt deploy stop` using Github Actions
 | skip-maint | Skip maintenance window (period where Pagerduty alarms are ignored). |  -  | false
 | cleanup | The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command |  -  | true
 | subcommand | action subcommand [ignore this input] |  -  | deploy
-| operation | operation of subcommand [ignore this input] |  -  | stop
+| operation | operation of subcommand [ignore this input] |  -  | start
 
 
 
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/deploy/stop@main
+uses: kentik/github-workflows/ktools/deploy/start@main
 with:
   service_group: notify-api
 
