@@ -20,7 +20,6 @@ You can add `+multi` in PR comment to force building multi target targets even o
 | earthly_version | Earthly version to use |  -  | 0.6.6
 
 
-
 ## Usage
 
 ```yaml
