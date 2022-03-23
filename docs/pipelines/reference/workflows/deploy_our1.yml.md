@@ -8,7 +8,7 @@ Wait for Jenkins and deploy the service to `our1`. Additionally, run `kt deploy 
 | - | - | - | - |
 | service_group | Name of the service group |  yes  | 
 | autodeploy_branches | A list of branches to deploy on every push |  yes  | '["master", "main"]'|
-| skip-maint | Skip maintenance window (period of time where Pagerduty alarms are ignored). |  -  | false
+| skip-maint | Skip maintenance window (period where Pagerduty alarms are ignored). |  -  | false
 | skip-restart | Skip restart step. |  -  | false
 | emergency-deploy | Ignores all constraints/restrictions and proceed with deploy |  -  | false
 | host | Deploys only to a comma-separated list of hosts. E.g: c101.our1.kentik.com,c102.our1.kentik.com |  -  | 

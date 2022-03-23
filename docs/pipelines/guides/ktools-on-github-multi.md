@@ -1,6 +1,6 @@
 # Deploying multiple Services
 
-Repositories that contains more than one service needs a way to conditionally define which service should be deployed. This can be achived by defining the same deploy action multiple times and different conditions to trigger each action.
+Repositories that contain more than one service need a way to conditionally define which service should be deployed. This can be achieved by defining the same deploy action multiple times and different conditions to trigger each action.
 
 
 Example: 

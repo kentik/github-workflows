@@ -19,16 +19,16 @@ jobs:
 Even though it is configured to trigger on all push events, it will only execute the job if the branch name is present in the `deployable_branches` list.
 
 ??? note "One size does not fits all"
-    Note that this is just a recommended workflow, you can define your own using the actions directly, this section also provides guidance to setup your own workflow. 
+    Note that this is just a recommended workflow, you can define your own using the actions directly, refer to [this guide](../develop-workflow.md) for more information.
 
 
 ### Deploying Conditionally
 
-Usually on feature branches you don't want to deploy every single commit, but specific ones.
+Usually, on a feature branch you don't want to deploy every single commit, but specific ones.
 
 The pipeline supports this feature by searching your commit message for specific patterns.
 
-To deploy a specific commit include the string `#deploy` or `#deployour1` to your commit message, example:
+To deploy a specific commit include the string `#deploy` or `#deployour1` to your commit message, for example:
 
 ```
 git commit -m "testing my feature #deployour1"
@@ -37,7 +37,7 @@ git push
 
 ### Ignoring a deploy
 
-If you configure a branch to get auto deploys, you can also prevent the deploy on specific commits, just add the string `#nodeploy` to your commit message.
+If you configure a branch to get auto deploys, you can also prevent a deployment on specific commits, just add the string `#nodeploy` to your commit message.
 
 Example:
 
@@ -54,6 +54,6 @@ The name of your service group, currently, we only support one service group per
 
 **deployable_branches**
 
-A list of branches that triggers a deploy to `our1`. If you don't want to deploy automatically, set it to `'[]'`.
+A list of branches that triggers a deployment to `our1`. If you don't want to deploy automatically, set it to `'[]'`.
 
 Default: `'["master", "main"]'`

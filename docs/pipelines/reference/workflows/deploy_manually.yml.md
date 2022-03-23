@@ -9,7 +9,7 @@ Deploy the service to any environment via API Call or using Github UI. Additiona
 | service_group | Name of the service group |  yes  | 
 | branch | Branch name or branch name with the build number to deploy a specific commit. E.g: master.21 |  yes  | 
 | environment | Environment name |  false  | our1 
-| skip-maint | Skip maintenance window (period of time where Pagerduty alarms are ignored). |  -  | false
+| skip-maint | Skip maintenance window (period where Pagerduty alarms are ignored). |  -  | false
 | skip-restart | Skip restart step. |  -  | false
 | emergency-deploy | Ignores all constraints/restrictions and proceed with deploy |  -  | false
 | host | Deploys only to a comma-separated list of hosts. E.g: c101.our1.kentik.com,c102.our1.kentik.com |  -  | 

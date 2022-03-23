@@ -1,6 +1,6 @@
 # Developing a new Github Workflow
 
-Previous guides explained how to deploy using ktools workflows. Our custom workflows defines common deployment patterns which will be enough for most users. If you feel that you need a more custom workflow you can use ktools actions directly.
+Previous guides explained how to deploy using ktools workflows. Our custom workflows define common deployment patterns which will be enough for most users. If you feel that you need a more custom workflow you can use ktools actions directly.
 
 
 ## Pre Requisites

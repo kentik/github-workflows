@@ -12,7 +12,7 @@ inputs:
     default: master
     required: false
   skip-maint:
-    description: 'Skip maintenance window (period of time where Pagerduty alarms are ignored).'
+    description: 'Skip maintenance window (period where Pagerduty alarms are ignored).'
     default: 'false'
     required: false
   skip-restart:
