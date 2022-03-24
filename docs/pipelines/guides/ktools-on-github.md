@@ -19,7 +19,7 @@ jobs:
 Even though it is configured to trigger on all push events, it will only execute the job if the branch name is present in the `deployable_branches` list.
 
 ??? note "One size does not fits all"
-    Note that this is just a recommended workflow, you can define your own using the actions directly, refer to [this guide](../develop-workflow.md) for more information.
+    Note that this is just a recommended workflow, you can define your own using the actions directly, refer to [this guide](../develop-workflow) for more information.
 
 
 ### Deploying Conditionally

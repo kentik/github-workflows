@@ -15,6 +15,26 @@ on:
         type: string
         description: A list of branches that should trigger a deployment without the need for a valid commit message pattern
         default: '["master", "main"]'
+      skip-maint:
+        description: 'Skip maintenance window (period where Pagerduty alarms are ignored).'
+        default: 'false'
+        required: false
+        type: string
+      skip-restart:
+        description: 'Skip restart step.'
+        default: 'false'
+        required: false
+        type: string
+      emergency-deploy:
+        description: "Ignores all constraints/restrictions and proceed with deploy"
+        default: 'false'
+        required: false
+        type: string
+      host:
+        description: "Deploys only to a comma-separated list of hosts. E.g: c101.our1.kentik.com,c102.our1.kentik.com"
+        default: ""
+        required: false
+        type: string
 
 
 jobs:
@@ -80,6 +100,10 @@ jobs:
           service_group: ${{ inputs.service_group }}
           environment: our1
           branch: ${{ inputs.branch }}
+          skip-maint: ${{ inputs.skip-maint }}
+          skip-restart: ${{ inputs.skip-restart }}
+          emergency-deploy: ${{ inputs.emergency-deploy }}
+          host: ${{ inputs.host }}
           cleanup: false
 
       - name: Show Status
