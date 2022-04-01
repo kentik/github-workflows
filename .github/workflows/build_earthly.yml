@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Earthly
-        uses: kentik/github-workflows/earthly@main
+        uses: kentik/github-workflows/earthly@id-token
         with:
           github_token: ${{ secrets.KENTIK_ALL_GITHUB_TOKEN }}
           earthly_target: ${{ inputs.earthly_target }}
