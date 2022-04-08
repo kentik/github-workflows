@@ -13,7 +13,10 @@ inputs:
     default: refresh
     description: action subcommand
     required: false
-    
+  operation:
+    default: refresh
+    description: operation of subcommand
+    required: false
     
 runs:
   using: 'node16'
