@@ -1,5 +1,5 @@
 name: KTools Refresh
-description: 'Update a kt installation'
+description: 'Updates a kt installation'
 inputs:
   environment:
     description: Environment 
