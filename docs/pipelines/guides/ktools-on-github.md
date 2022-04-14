@@ -3,17 +3,18 @@
 Add a new file to your workflows folder `.github/workflows/` with the content above. The file name is not relevant, as long as the extension is `.yml` or `.yaml`:
 
 ```yaml
-name: Deploy to Staging
+name: Deploy
 
 on:
   push:
 
 jobs:
   deploy:
-    uses: kentik/github-workflows/.github/workflows/deploy_our1.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
     with:
       service_group: add-here-the-name-of-your-service-group
       deployable_branches: '["master", "main"]'
+      environment: our1
 ```
 
 Even though it is configured to trigger on all push events, it will only execute the job if the branch name is present in the `deployable_branches` list.
@@ -28,10 +29,10 @@ Usually, on a feature branch you don't want to deploy every single commit, but s
 
 The pipeline supports this feature by searching your commit message for specific patterns.
 
-To deploy a specific commit include the string `#deploy` or `#deployour1` to your commit message, for example:
+To deploy a specific commit include the string `#deploy` to your commit message, for example:
 
 ```
-git commit -m "testing my feature #deployour1"
+git commit -m "testing my feature #deploy"
 git push
 ```
 
@@ -46,14 +47,6 @@ git commit -m "do not deploy #nodeploy"
 git push
 ```
 
-#### Attributes
+### Deploying to Production/OnPrem
 
-**service_group**
-
-The name of your service group, currently, we only support one service group per repository.
-
-**deployable_branches**
-
-A list of branches that triggers a deployment to `our1`. If you don't want to deploy automatically, set it to `'[]'`.
-
-Default: `'["master", "main"]'`
+By default, the action deploys to `our1`, but you can deploy to any environment by overriding the `environment` input with commit flags. For more information, refer to the [pipeline reference](../../reference/workflows/deploy.yml).

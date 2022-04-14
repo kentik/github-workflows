@@ -1,12 +1,13 @@
-# deploy_our1.yml [deprecated]
+# deploy.yml
 
-Wait for Jenkins and deploy the service to `our1`. Additionally, run `kt deploy status` before and after deploying. 
+Wait for Jenkins and deploy the service to the configured environment, `our1` by default. Additionally, run `kt deploy status` before and after deploying. 
 
 ## Inputs
 
 | parameter| description | required | default |
 | - | - | - | - |
 | service_group | Name of the service group |  yes  | 
+| environment | Name of the environment |  yes  | our1
 | autodeploy_branches | A list of branches to deploy on every push |  yes  | '["master", "main"]'|
 | skip-maint | Skip maintenance window (period where Pagerduty alarms are ignored). |  -  | false
 | skip-restart | Skip restart step. |  -  | false
@@ -18,14 +19,14 @@ Wait for Jenkins and deploy the service to `our1`. Additionally, run `kt deploy 
 ## Usage
 
 ```yaml
-name: Deploy to Staging
+name: Deploy
 
 on:
   push:
 
 jobs:
   deploy:
-    uses: kentik/github-workflows/.github/workflows/deploy_our1.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
     with:
       service_group: apigw-envoy-fe
 ```
@@ -37,8 +38,16 @@ This workflow expects the following commit patterns to get triggered or ignore a
 | pattern| action|
 | - | - |
 | `#deploy` | Current commit will get deployed to `our1`| 
-| `#deployour1` | Current commit will get deployed to `our1`| 
 | `#nodeploy` | Ignore a deploy from a branch configured to **always deploy** (`autodeploy_branches`)| 
+
+By default, it will deploy to `our1` unless you configure the job with a different `environment`. You can also override the default environment or any other input, for example:
+
+```
+git commit -m "#deploy some service to #environment=jp1"
+```
+
+
+For more information, [read this guide](../../../guides/override-inputs).
 
 
 #### autodeploy_branches

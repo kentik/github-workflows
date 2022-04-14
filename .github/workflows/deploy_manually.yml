@@ -1,4 +1,4 @@
-name: Deploy to any environment using ktools
+name: Deploy manually to any environment using ktools
 on:
   workflow_call:
     inputs:

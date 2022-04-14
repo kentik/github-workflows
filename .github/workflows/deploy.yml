@@ -1,4 +1,4 @@
-name: Deploy to our1 using ktools (deprecated use deploy.yml)
+name: Deploy to any environment using ktools
 
 on:
   workflow_call:
@@ -10,6 +10,11 @@ on:
         required: false
         type: string
         default: ${{ github.ref_name }}
+      environment:
+        required: true
+        type: string
+        description: Environment name
+        default: our1
       autodeploy_branches:
         required: false
         type: string
@@ -43,7 +48,6 @@ jobs:
     runs-on: ubuntu-latest
     if: >-
       (
-        contains(github.event.head_commit.message, '#deployour1') ||
         contains(github.event.head_commit.message, '#deploy') ||
         contains(toJSON(inputs.autodeploy_branches), github.ref_name)
       ) && 
@@ -62,13 +66,12 @@ jobs:
           allowedStatus: success
 
   deploy:
-    name: Deploy to Staging (our1)
+    name: Deploy Service
     needs: wait_for_build
 
     runs-on: ubuntu-latest
     if: >-
       (
-        contains(github.event.head_commit.message, '#deployour1') ||
         contains(github.event.head_commit.message, '#deploy') ||
         contains(toJSON(inputs.autodeploy_branches), github.ref_name)
       ) && 
@@ -91,14 +94,14 @@ jobs:
         uses: kentik/github-workflows/ktools/deploy/status@main
         with:
           service_group: ${{ inputs.service_group }}
-          environment: our1
+          environment: ${{ inputs.environment }}
           cleanup: false
 
       - name: Deploy Service
         uses: kentik/github-workflows/ktools/deploy/push@main
         with:
           service_group: ${{ inputs.service_group }}
-          environment: our1
+          environment: ${{ inputs.environment }}
           branch: ${{ inputs.branch }}
           skip-maint: ${{ inputs.skip-maint }}
           skip-restart: ${{ inputs.skip-restart }}
@@ -110,4 +113,4 @@ jobs:
         uses: kentik/github-workflows/ktools/deploy/status@main
         with:
           service_group: ${{ inputs.service_group }}
-          environment: our1
+          environment: ${{ inputs.environment }}
