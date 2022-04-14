@@ -11,7 +11,7 @@ on:
         type: string
         default: ${{ github.ref_name }}
       environment:
-        required: true
+        required: false
         type: string
         description: Environment name
         default: our1
