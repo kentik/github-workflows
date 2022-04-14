@@ -3,19 +3,19 @@ name: KTools Deploy Operations
 on:
   workflow_call:
     inputs:
+      service_group:
+        description: 'Service Group'
+        required: true
+        type: string
       action:
         description: 'Action to execute'
-        required: true
+        required: false
         default: 'status' 
         type: string
       environment:
         description: Environment
-        required: true
+        required: false
         default: our1
-        type: string
-      service_group:
-        description: 'Service Group'
-        required: true
         type: string
       skip-maint:
         description: 'Skip maintenance window (period where Pagerduty alarms are ignored).'

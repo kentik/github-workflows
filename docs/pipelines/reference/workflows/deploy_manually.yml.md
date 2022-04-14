@@ -39,10 +39,7 @@ on:
         required: true
         default: our1
         type: choice
-        options:
-          - our1
-          - fra1
-          - production
+        options: ["production", "fra1", "our1", "dfw1", "jp1", "yyz1", "hrd1", "hnd1", "bct1", "buf1", "nez1", "nrt1"]
 
 jobs:
   deploy:
