@@ -59,6 +59,6 @@ Note that in this case they will be executed in parallel.
 
 ### Deploying Manually
 
-You might also want to deploy manually, maybe you use the commit message to deploy the first service and now want to deploy the next one.
+You might also want to deploy manually, to deploy to other environments, or a different service.
 
 The [next guide](ktools-deploy-manual.md) explains how you can do it.

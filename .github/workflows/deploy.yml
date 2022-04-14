@@ -31,7 +31,7 @@ on:
         required: false
         type: string
       emergency-deploy:
-        description: "Ignores all constraints/restrictions and proceed with deploy"
+        description: "Ignores all constraints/restrictions and proceeds with deploy"
         default: 'false'
         required: false
         type: string

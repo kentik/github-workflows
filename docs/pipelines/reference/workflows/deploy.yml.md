@@ -11,7 +11,7 @@ Wait for Jenkins and deploy the service to the configured environment, `our1` by
 | autodeploy_branches | A list of branches to deploy on every push |  yes  | '["master", "main"]'|
 | skip-maint | Skip maintenance window (period where Pagerduty alarms are ignored). |  -  | false
 | skip-restart | Skip restart step. |  -  | false
-| emergency-deploy | Ignores all constraints/restrictions and proceed with deploy |  -  | false
+| emergency-deploy | Ignores all constraints/restrictions and proceeds with deploy |  -  | false
 | host | Deploys only to a comma-separated list of hosts. E.g: c101.our1.kentik.com,c102.our1.kentik.com |  -  | 
 | sleep | Sleep for the configured amount of seconds between servers instead of `randsleep` |  -  | -1
 
