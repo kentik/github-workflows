@@ -13,11 +13,11 @@ jobs:
     uses: kentik/github-workflows/.github/workflows/deploy.yml@main
     with:
       service_group: add-here-the-name-of-your-service-group
-      deployable_branches: '["master", "main"]'
+      autodeploy_branches: '["master", "main"]'
       environment: our1
 ```
 
-Even though it is configured to trigger on all push events, it will only execute the job if the branch name is present in the `deployable_branches` list.
+Even though it is configured to trigger on all push events, it will only execute the job if the branch name is present in the `autodeploy_branches` list.
 
 ??? note "One size does not fits all"
     Note that this is just a recommended workflow, you can define your own using the actions directly, refer to [this guide](../develop-workflow) for more information.
