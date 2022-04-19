@@ -1,4 +1,4 @@
-# Deploying with ktools manually
+# Deploying via the Github UI
 
 Github provides the ability to trigger a workflow manually using the event type `workflow_dispatch`. You can trigger it via API and also using the UI.
 
