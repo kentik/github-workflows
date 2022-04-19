@@ -6,20 +6,20 @@ Repositories that contain more than one service need a way to conditionally defi
 Example: 
 
 ```yaml
-name: Deploy to Staging
+name: Deploy
 
 on:
   push:
 
 jobs:
   deploy_api:
-    uses: kentik/github-workflows/.github/workflows/deploy_our1.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
     if: contains(github.event.head_commit.message, '#notify-api') 
     with:
       service_group: notify-api
 
   deploy_worker:
-    uses: kentik/github-workflows/.github/workflows/deploy_our1.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
     if: contains(github.event.head_commit.message, '#notify-worker') 
     with:
       service_group: notify-worker
@@ -29,9 +29,9 @@ Similar to the guide [Deploying with ktools](ktools-on-github.md), we define a j
 
 ### Deploy Conditions
 
-Because the jobs now include a condition and the common workflow (deploy_our1.yml) also includes a condition, github will only trigger a deploy if:
+Because the jobs now include a condition and the common workflow (deploy.yml) also includes a condition, github will only trigger a deploy if:
 
-**deploy_api**:
+**notify_api**:
 
 ```
 git commit -m " some msg #deploy #notify-api"
@@ -59,6 +59,6 @@ Note that in this case they will be executed in parallel.
 
 ### Deploying Manually
 
-You might also want to deploy manually, maybe you use the commit message to deploy the first service and now want to deploy the next one.
+You might also want to deploy manually, to deploy to other environments, or a different service.
 
 The [next guide](ktools-deploy-manual.md) explains how you can do it.

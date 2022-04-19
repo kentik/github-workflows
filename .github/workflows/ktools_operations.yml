@@ -1,0 +1,120 @@
+name: KTools Deploy Operations
+
+on:
+  workflow_call:
+    inputs:
+      service_group:
+        description: 'Service Group'
+        required: true
+        type: string
+      action:
+        description: 'Action to execute'
+        required: false
+        default: 'status' 
+        type: string
+      environment:
+        description: Environment
+        required: false
+        default: our1
+        type: string
+      skip-maint:
+        description: 'Skip maintenance window (period where Pagerduty alarms are ignored).'
+        default: 'false'
+        required: false
+        type: string
+      host:
+        description: "Deploys only to a comma-separated list of hosts. E.g: c101.our1.kentik.com,c102.our1.kentik.com"
+        default: ""
+        required: false
+        type: string
+
+
+jobs:
+  status:
+    name: Service Status
+    runs-on: ubuntu-latest
+    if: inputs.action == 'status'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Configure Credentials
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
+          
+      - name: Service Status
+        uses: kentik/github-workflows/ktools/deploy/status@main
+        if: inputs.action == 'status'
+        with:
+          service_group:  ${{ inputs.service_group }}
+          environment: ${{ inputs.environment }}
+  restart:
+    name: Restart Service
+    runs-on: ubuntu-latest
+    if: inputs.action == 'restart'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+
+      - name: Configure Credentials
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
+      
+      - name: Restart Service
+        uses: kentik/github-workflows/ktools/deploy/restart@main
+        with:
+          service_group:  ${{ inputs.service_group }}
+          environment: ${{ inputs.environment }}
+          host: ${{ inputs.host }}
+          skip-maint: ${{ inputs.skip-maint }}
+
+  start:
+    name: Start Service
+    runs-on: ubuntu-latest
+    if: inputs.action == 'start'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Configure Credentials
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
+          
+      - name: Start Service
+        uses: kentik/github-workflows/ktools/deploy/start@main
+        if: inputs.action == 'start'
+        with:
+          service_group:  ${{ inputs.service_group }}
+          environment: ${{ inputs.environment }}
+  stop:
+    name: Stop Service
+    runs-on: ubuntu-latest
+    if: inputs.action == 'stop'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+
+      - name: Configure Credentials
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
+          
+      - name: Stop Service
+        uses: kentik/github-workflows/ktools/deploy/stop@main
+        if: inputs.action == 'stop'
+        with:
+          service_group:  ${{ inputs.service_group }}
+          environment: ${{ inputs.environment }}
+          host: ${{ inputs.host }}
+          skip-maint: ${{ inputs.skip-maint }}
+
+  

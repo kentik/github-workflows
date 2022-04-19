@@ -3,3 +3,4 @@
 - [Deploying with ktools manually](ktools-deploy-manual.md)
 - [Custom ktools Workflow](develop-workflow.md)
 - [Overriding ktools Inputs on git push](override-inputs.md)
+- [Running Deploy Operations](deploy-operations.md)

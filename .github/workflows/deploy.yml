@@ -1,4 +1,5 @@
-name: Deploy manually to any environment using ktools
+name: Deploy to any environment using ktools
+
 on:
   workflow_call:
     inputs:
@@ -8,10 +9,17 @@ on:
       branch:
         required: false
         type: string
+        default: ${{ github.ref_name }}
       environment:
         required: false
         type: string
+        description: Environment name
         default: our1
+      autodeploy_branches:
+        required: false
+        type: string
+        description: A list of branches that should trigger a deployment without the need for a valid commit message pattern
+        default: '["master", "main"]'
       skip-maint:
         description: 'Skip maintenance window (period where Pagerduty alarms are ignored).'
         default: 'false'
@@ -33,12 +41,41 @@ on:
         required: false
         type: string
 
+
 jobs:
+  wait_for_build:
+    name: Wait for Build
+    runs-on: ubuntu-latest
+    if: >-
+      (
+        contains(github.event.head_commit.message, '#deploy') ||
+        contains(toJSON(inputs.autodeploy_branches), github.ref_name)
+      ) && 
+      ! contains(github.event.head_commit.message, '#nodeploy')
+    steps:
+
+      - name: Wait for Build
+        uses: bernardovale/action-wait-for-check@allowed-status
+        id: wait-for-build
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkName: Jenkins
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          intervalSeconds: 5
+          timeoutSeconds: 1800
+          allowedStatus: success
 
   deploy:
     name: Deploy Service
-    
+    needs: wait_for_build
+
     runs-on: ubuntu-latest
+    if: >-
+      (
+        contains(github.event.head_commit.message, '#deploy') ||
+        contains(toJSON(inputs.autodeploy_branches), github.ref_name)
+      ) && 
+      ! contains(github.event.head_commit.message, '#nodeploy')
 
     # Allow the job to fetch a GitHub ID token
     permissions:
