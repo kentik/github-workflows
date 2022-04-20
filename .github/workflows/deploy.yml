@@ -43,6 +43,16 @@ on:
 
 
 jobs:
+  printJob:    
+    name: Print event
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT"
+
   wait_for_build:
     name: Wait for Build
     runs-on: ubuntu-latest
