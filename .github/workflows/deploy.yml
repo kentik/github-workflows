@@ -50,7 +50,11 @@ jobs:
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
+        AUTODEPLOYABLE: ${{ contains(toJSON(inputs.autodeploy_branches), github.ref_name) }}
+        DEPLOY_BRANCHES: ${{ toJSON(inputs.autodeploy_branches) }}
       run: |
+        echo "branches: $DEPLOY_BRANCHES"
+        echo "auto: $AUTODEPLOYABLE"
         echo "$GITHUB_CONTEXT"
 
   wait_for_build:
