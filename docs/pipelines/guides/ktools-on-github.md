@@ -1,6 +1,12 @@
-# Deploying with KTools
+# Deploying with KTools and github actions
 
-Add a new file to your workflows folder `.github/workflows/` with the content above. The file name is not relevant, as long as the extension is `.yml` or `.yaml`:
+Here's a quick guide about using ktools and github workflows.
+
+## Enable the ktools github workflow in your repository
+
+Get the relevant service group name from ktools here: https://github.com/kentik/ktools/blob/master/definitions/service_groups.yaml
+
+Add a new file to your workflows folder `.github/workflows/` with the content above. Call it `deploy_our1.yaml` (or something meaningful to you, as long as the extension is `.yml` or `.yaml`):
 
 ```yaml
 name: Deploy
@@ -12,7 +18,7 @@ jobs:
   deploy:
     uses: kentik/github-workflows/.github/workflows/deploy.yml@main
     with:
-      service_group: add-here-the-name-of-your-service-group
+      service_group: **YOUR_SERVICE_GROUP**
       autodeploy_branches: '["master", "main"]'
       environment: our1
 ```
@@ -23,7 +29,11 @@ Even though it is configured to trigger on all push events, it will only execute
     Note that this is just a recommended workflow, you can define your own using the actions directly, refer to [this guide](../develop-workflow) for more information.
 
 
-### Deploying Conditionally
+## Using commit messages to control deploys
+
+You can control deploys via special keywords in commit messages.
+
+### Deploy conditionally
 
 Usually, on a feature branch you don't want to deploy every single commit, but specific ones.
 
