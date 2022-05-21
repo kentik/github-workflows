@@ -1,0 +1,29 @@
+name: KTools Ansible Run
+description: 'Run any ansible playbook using Github Actions'
+inputs:
+  environment:
+    description: Environment 
+    required: true
+  service_group:
+    description: Name of the service
+    required: true
+  action:
+    description: Path to the playbook
+    required: true
+  cleanup:
+    description: The log subscription won't be deleted if true. Set to `true` if you plan to run more kt commands in the pipeline. Set to false in the last command
+    default: 'true'
+    required: false
+  subcommand:
+    default: wip
+    description: action subcommand [ignore this input]
+    required: false
+  operation:
+    default: ansible
+    description: operation of subcommand [ignore this input]
+    required: false
+    
+    
+runs:
+  using: 'node16'
+  main: '../../run.js'

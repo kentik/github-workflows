@@ -116,5 +116,27 @@ jobs:
           environment: ${{ inputs.environment }}
           host: ${{ inputs.host }}
           skip-maint: ${{ inputs.skip-maint }}
+  ansible:
+    name: Run Ansible
+    runs-on: ubuntu-latest
+    if: inputs.action == 'ansible'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+
+      - name: Configure Credentials
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
+          
+      - name: Run Ansible
+        uses: kentik/github-workflows/ktools/ansible/run@ansible
+        if: inputs.action == 'stop'
+        with:
+          service_group:  ${{ inputs.service_group }}
+          environment: ${{ inputs.environment }}
+          action: deploy/restart
 
   
