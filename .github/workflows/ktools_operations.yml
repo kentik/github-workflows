@@ -133,7 +133,7 @@ jobs:
           
       - name: Run Ansible
         uses: kentik/github-workflows/ktools/ansible/run@ansible
-        if: inputs.action == 'stop'
+        if: inputs.action == 'ansible'
         with:
           service_group:  ${{ inputs.service_group }}
           environment: ${{ inputs.environment }}
