@@ -45,7 +45,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
           
       - name: Service Status
-        uses: kentik/github-workflows/ktools/deploy/status@main
+        uses: kentik/github-workflows/ktools/deploy/status@ansible
         if: inputs.action == 'status'
         with:
           service_group:  ${{ inputs.service_group }}
@@ -66,7 +66,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
       
       - name: Restart Service
-        uses: kentik/github-workflows/ktools/deploy/restart@main
+        uses: kentik/github-workflows/ktools/deploy/restart@ansible
         with:
           service_group:  ${{ inputs.service_group }}
           environment: ${{ inputs.environment }}
@@ -88,7 +88,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
           
       - name: Start Service
-        uses: kentik/github-workflows/ktools/deploy/start@main
+        uses: kentik/github-workflows/ktools/deploy/start@ansible
         if: inputs.action == 'start'
         with:
           service_group:  ${{ inputs.service_group }}
@@ -109,7 +109,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
           
       - name: Stop Service
-        uses: kentik/github-workflows/ktools/deploy/stop@main
+        uses: kentik/github-workflows/ktools/deploy/stop@ansible
         if: inputs.action == 'stop'
         with:
           service_group:  ${{ inputs.service_group }}

@@ -23,7 +23,7 @@ Deploy Kentik services using Github Actions
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/deploy/push@main
+uses: kentik/github-workflows/ktools/deploy/push@ansible
 with:
   service_group: notify-api
 

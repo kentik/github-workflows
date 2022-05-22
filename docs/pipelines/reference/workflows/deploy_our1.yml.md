@@ -25,7 +25,7 @@ on:
 
 jobs:
   deploy:
-    uses: kentik/github-workflows/.github/workflows/deploy_our1.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy_our1.yml@ansible
     with:
       service_group: apigw-envoy-fe
 ```

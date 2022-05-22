@@ -19,7 +19,7 @@ Start Kentik services using Github Actions
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/deploy/start@main
+uses: kentik/github-workflows/ktools/deploy/start@ansible
 with:
   service_group: notify-api
 

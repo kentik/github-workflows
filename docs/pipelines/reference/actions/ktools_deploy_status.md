@@ -18,7 +18,7 @@ Show the status of Kentik Services
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/deploy/status@main
+uses: kentik/github-workflows/ktools/deploy/status@ansible
 with:
   service_group: notify-api
 

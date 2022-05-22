@@ -16,7 +16,7 @@ on:
 
 jobs:
   deploy:
-    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@ansible
     with:
       service_group: **YOUR_SERVICE_GROUP**
       autodeploy_branches: '["master", "main"]'

@@ -17,7 +17,7 @@ Updates a kt installation
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/refresh@main
+uses: kentik/github-workflows/ktools/refresh@ansible
 with:
   environment: our1
 

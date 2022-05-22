@@ -13,13 +13,13 @@ on:
 
 jobs:
   deploy_api:
-    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@ansible
     if: contains(github.event.head_commit.message, '#notify-api') 
     with:
       service_group: notify-api
 
   deploy_worker:
-    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@ansible
     if: contains(github.event.head_commit.message, '#notify-worker') 
     with:
       service_group: notify-worker

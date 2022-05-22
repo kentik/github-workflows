@@ -30,7 +30,7 @@ on:
           - notify-worker
 jobs:
   manual_deploy:
-    uses: kentik/github-workflows/.github/workflows/deploy_manually.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy_manually.yml@ansible
     if: github.event_name == 'workflow_dispatch'
     with:
       service_group: ${{ github.event.inputs.service_group }}
@@ -70,19 +70,19 @@ on:
 
 jobs:
   deploy_notify:
-    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@ansible
     if: contains(github.event.head_commit.message, '#notify') 
     with:
       service_group: notify-api
 
   deploy_worker:
-    uses: kentik/github-workflows/.github/workflows/deploy.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy.yml@ansible
     if: contains(github.event.head_commit.message, '#notify-worker') 
     with:
       service_group: notify-worker
 
   manual_deploy:
-    uses: kentik/github-workflows/.github/workflows/deploy_manually.yml@main
+    uses: kentik/github-workflows/.github/workflows/deploy_manually.yml@ansible
     if: github.event_name == 'workflow_dispatch'
     with:
       service_group: ${{ github.event.inputs.service_group }}

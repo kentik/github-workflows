@@ -24,7 +24,7 @@ You can add `+multi` in PR comment to force building multi target targets even o
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/earthly@main
+uses: kentik/github-workflows/earthly@ansible
 with:
   github_token: ${{ secrets.GITHUB_TOKEN }}
   earthly_target: +all
