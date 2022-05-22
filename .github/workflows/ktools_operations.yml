@@ -125,6 +125,9 @@ jobs:
       id-token: 'write'
     steps:
 
+      - name: dump
+        run: env
+
       - name: Configure Credentials
         uses: google-github-actions/auth@v0
         with:
