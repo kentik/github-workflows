@@ -43,7 +43,7 @@ on:
 
 jobs:
   deploy:
-    uses: kentik/github-workflows/.github/workflows/deploy_manually.yml@ansible
+    uses: kentik/github-workflows/.github/workflows/deploy_manually.yml@main
     if: github.event_name == 'workflow_dispatch'
     with:
       service_group: ${{ github.event.inputs.service_group }}

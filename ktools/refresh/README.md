@@ -14,7 +14,7 @@
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/refresh@ansible
+uses: kentik/github-workflows/ktools/refresh@main
 with:
   environment: our1
 

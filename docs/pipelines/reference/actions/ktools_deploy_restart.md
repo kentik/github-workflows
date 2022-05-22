@@ -19,7 +19,7 @@ Restart Kentik services using Github Actions
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/deploy/restart@ansible
+uses: kentik/github-workflows/ktools/deploy/restart@main
 with:
   service_group: notify-api
 

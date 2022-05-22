@@ -14,8 +14,8 @@
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/{{ path }}@main
+uses: kentik/github-workflows/ktools/ansible/run@main
 with:
   service_group: notify-api
-
+  playbook: deploy/restart
 ```

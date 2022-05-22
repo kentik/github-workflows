@@ -45,7 +45,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
           
       - name: Service Status
-        uses: kentik/github-workflows/ktools/deploy/status@ansible
+        uses: kentik/github-workflows/ktools/deploy/status@main
         if: inputs.action == 'status'
         with:
           service_group:  ${{ inputs.service_group }}
@@ -66,7 +66,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
       
       - name: Restart Service
-        uses: kentik/github-workflows/ktools/deploy/restart@ansible
+        uses: kentik/github-workflows/ktools/deploy/restart@main
         with:
           service_group:  ${{ inputs.service_group }}
           environment: ${{ inputs.environment }}
@@ -88,7 +88,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
           
       - name: Start Service
-        uses: kentik/github-workflows/ktools/deploy/start@ansible
+        uses: kentik/github-workflows/ktools/deploy/start@main
         if: inputs.action == 'start'
         with:
           service_group:  ${{ inputs.service_group }}
@@ -109,7 +109,7 @@ jobs:
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
           
       - name: Stop Service
-        uses: kentik/github-workflows/ktools/deploy/stop@ansible
+        uses: kentik/github-workflows/ktools/deploy/stop@main
         if: inputs.action == 'stop'
         with:
           service_group:  ${{ inputs.service_group }}
@@ -125,17 +125,14 @@ jobs:
       id-token: 'write'
     steps:
 
-      - name: dump
-        run: env
-
       - name: Configure Credentials
         uses: google-github-actions/auth@v0
         with:
           workload_identity_provider: "projects/70880649570/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
           service_account: "svc-github-ktools-action@kentik-continuous-delivery.iam.gserviceaccount.com"
           
-      - name: Run Ansible
-        uses: kentik/github-workflows/ktools/ansible/run@ansible
+      - name: Ansible Restart
+        uses: kentik/github-workflows/ktools/ansible/run@main
         if: inputs.action == 'ansible'
         with:
           service_group:  ${{ inputs.service_group }}

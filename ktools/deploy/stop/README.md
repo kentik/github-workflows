@@ -14,7 +14,7 @@
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/{{ path }}@ansible
+uses: kentik/github-workflows/{{ path }}@main
 with:
   service_group: notify-api
 

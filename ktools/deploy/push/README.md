@@ -14,7 +14,7 @@
 ## Usage
 
 ```yaml
-uses: kentik/github-workflows/ktools/deploy/push@ansible
+uses: kentik/github-workflows/ktools/deploy/push@main
 with:
   service_group: notify-api
 
