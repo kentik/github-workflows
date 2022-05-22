@@ -137,6 +137,6 @@ jobs:
         with:
           service_group:  ${{ inputs.service_group }}
           environment: ${{ inputs.environment }}
-          action: deploy/restart
+          playbook: deploy/restart
 
   
