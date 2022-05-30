@@ -96,5 +96,5 @@ runs:
         EARTHLY_ALLOW_PRIVILEGED: 'true'
         EARTHLY_VERBOSE: ${{ contains(github.event.pull_request.body, '+debug') }}
       run: |
-        echo "earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH"
-        earthly --push --strict $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH
+        echo "earthly --push $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH"
+        earthly --push $EARTHLY_TARGET --RUN_ID=$GITHUB_RUN_NUMBER --SANITIZED_BRANCH=$SANITIZED_BRANCH
