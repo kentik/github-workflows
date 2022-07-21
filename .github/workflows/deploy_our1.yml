@@ -89,6 +89,9 @@ jobs:
 
       - name: Show Current Status
         uses: kentik/github-workflows/ktools/deploy/status@main
+        env:
+          KT_PREFERENCES_CONSOLE_TABLE_COLOR_SYSTEM: truecolor
+          KT_PREFERENCES_CONSOLE_TABLE_WIDTH: 140
         with:
           service_group: ${{ inputs.service_group }}
           environment: our1
@@ -108,6 +111,9 @@ jobs:
 
       - name: Show Status
         uses: kentik/github-workflows/ktools/deploy/status@main
+        env:
+          KT_PREFERENCES_CONSOLE_TABLE_COLOR_SYSTEM: truecolor
+          KT_PREFERENCES_CONSOLE_TABLE_WIDTH: 140
         with:
           service_group: ${{ inputs.service_group }}
           environment: our1

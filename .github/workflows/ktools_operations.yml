@@ -49,7 +49,7 @@ jobs:
         if: inputs.action == 'status'
         env:
           KT_PREFERENCES_CONSOLE_TABLE_COLOR_SYSTEM: truecolor
-          KT_PREFERENCES_CONSOLE_TABLE_WIDTH: 120
+          KT_PREFERENCES_CONSOLE_TABLE_WIDTH: 140
         with:
           service_group:  ${{ inputs.service_group }}
           environment: ${{ inputs.environment }}
