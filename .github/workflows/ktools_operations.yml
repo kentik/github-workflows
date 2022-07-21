@@ -47,6 +47,9 @@ jobs:
       - name: Service Status
         uses: kentik/github-workflows/ktools/deploy/status@preferences
         if: inputs.action == 'status'
+        env:
+          KT_PREFERENCES_CONSOLE_TABLE_COLOR_SYSTEM: truecolor
+          KT_PREFERENCES_CONSOLE_TABLE_WIDTH: 120
         with:
           service_group:  ${{ inputs.service_group }}
           environment: ${{ inputs.environment }}
